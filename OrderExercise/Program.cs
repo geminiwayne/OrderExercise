@@ -90,91 +90,127 @@ namespace OrderExercise
             List<String> tempList = new List<String>();
             String[] splittedArr = orderItem.Split(' ');
             int budgetNum = 0;
+            Double totalCost = 2147483647;
             Int32.TryParse(splittedArr[0], out budgetNum);
             switch (splittedArr[1])
             {
                 case "SH3":
                     int mediumMaxSH = (budgetNum / 5) + 1;
                     int smallmMaxSH = (budgetNum / 3) + 1;
-                    for (var i = 0; i < mediumMaxSH; i++)
+                    int medPackNum = 0;
+                    int smaPackNum = 0;
+
+                    for (var j = 0; j < smallmMaxSH; j++)
                     {
-                        for (var j = 0; j < smallmMaxSH; j++)
+                        for (var i = 0; i < mediumMaxSH; i++)
                         {
                             if (5 * i + 3 * j == budgetNum)
                             {
-                                tempList.Add(orderItem + " $" + (4.49 * i + 2.99 * j).ToString());
-                                if (i != 0)
+                                Double sum = 4.49 * i + 2.99 * j;
+                                if (sum < totalCost)
                                 {
-                                    tempList.Add(i.ToString() + "*5 $" + (4.49 * i).ToString());
-                                }
-                                if (j != 0)
-                                {
-                                    tempList.Add(j.ToString() + "*3 $" + (2.99 * j).ToString());
+                                    totalCost = sum;
+                                    medPackNum = i;
+                                    smaPackNum = j;
                                 }
                             }
                         }
+                    }
+                    tempList.Add(orderItem + " $" + (totalCost).ToString());
+                    if (medPackNum != 0)
+                    {
+                        tempList.Add(medPackNum.ToString() + "*5 $" + (4.49 * medPackNum).ToString());
+                    }
+                    if (smaPackNum != 0)
+                    {
+                        tempList.Add(smaPackNum.ToString() + "*3 $" + (2.99 * smaPackNum).ToString());
                     }
                     break;
                 case "YT2":
                     int largeMaxYT = (budgetNum / 15) + 1;
                     int mediumMaxYT = (budgetNum / 10) + 1;
                     int smallmMaxYT = (budgetNum / 4) + 1;
-                    for (var i = 0; i < largeMaxYT; i++)
+                    int medPackNumYT = 0;
+                    int smaPackNumYT = 0;
+                    int largePackNumYT = 0;
+                    for (var k = 0; k < smallmMaxYT; k++)
                     {
                         for (var j = 0; j < mediumMaxYT; j++)
                         {
-                            for (var k = 0; k < smallmMaxYT; k++)
+                            for (var i = 0; i < largeMaxYT; i++)
                             {
                                 if (15 * i + 10 * j + 4 * k == budgetNum)
                                 {
-                                    tempList.Add(orderItem + " $" + (13.95 * i + 9.95 * j + 4.95 * k).ToString());
+                                    Double sum = 13.95 * i + 9.95 * j + 4.95 * k;
+                                    if (sum < totalCost)
+                                    {
+                                        totalCost = sum;
+                                        largePackNumYT = i;
+                                        medPackNumYT = j;
+                                        smaPackNumYT = k;
 
-                                    if (i != 0)
-                                    {
-                                        tempList.Add(i.ToString() + "*15 $" + (13.95 * i).ToString());
-                                    }
-                                    if (j != 0)
-                                    {
-                                        tempList.Add(j.ToString() + "*10 $" + (9.95 * j).ToString());
-                                    }
-                                    if (k != 0)
-                                    {
-                                        tempList.Add(k.ToString() + "*4 $" + (4.95 * k).ToString());
                                     }
                                 }
                             }
                         }
                     }
+
+                    tempList.Add(orderItem + " $" + (totalCost).ToString());
+                    if (largePackNumYT != 0)
+                    {
+                        tempList.Add(largePackNumYT.ToString() + "*15 $" + (13.95 * largePackNumYT).ToString());
+                    }
+                    if (medPackNumYT != 0)
+                    {
+                        tempList.Add(medPackNumYT.ToString() + "*10 $" + (9.95 * medPackNumYT).ToString());
+                    }
+                    if (smaPackNumYT != 0)
+                    {
+                        tempList.Add(smaPackNumYT.ToString() + "*4 $" + (4.95 * smaPackNumYT).ToString());
+                    }
                     break;
                 case "TR":
-                    int largeMaxTR = (budgetNum / 15) + 1;
-                    int mediumMaxTR = (budgetNum / 10) + 1;
-                    int smallmMaxTR = (budgetNum / 4) + 1;
-                    for (var i = 0; i < largeMaxTR; i++)
+                    int largeMaxTR = (budgetNum / 9) + 1;
+                    int mediumMaxTR = (budgetNum / 5) + 1;
+                    int smallmMaxTR = (budgetNum / 3) + 1;
+                    int medPackNumTR = 0;
+                    int smaPackNumTR = 0;
+                    int largePackNumTR = 0;
+                    for (var k = 0; k < smallmMaxTR; k++)
                     {
                         for (var j = 0; j < mediumMaxTR; j++)
                         {
-                            for (var k = 0; k < smallmMaxTR; k++)
+                            for (var i = 0; i < largeMaxTR; i++)
                             {
-                                if (15 * i + 10 * j + 4 * k == budgetNum)
+                                if (9 * i + 5 * j + 3 * k == budgetNum)
                                 {
-                                    tempList.Add(orderItem + " $" + (7.99 * i + 4.45 * j + 2.95 * k).ToString());
+                                    Double sum = 7.99 * i + 4.45 * j + 2.95 * k;
+                                    if (sum < totalCost)
+                                    {
+                                        totalCost = sum;
+                                        largePackNumTR = i;
+                                        medPackNumTR = j;
+                                        smaPackNumTR = k;
 
-                                    if (i != 0)
-                                    {
-                                        tempList.Add(i.ToString() + "*9 $" + (7.99 * i).ToString());
-                                    }
-                                    if (j != 0)
-                                    {
-                                        tempList.Add(j.ToString() + "*5 $" + (4.45 * j).ToString());
-                                    }
-                                    if (k != 0)
-                                    {
-                                        tempList.Add(k.ToString() + "*3 $" + (2.95 * k).ToString());
                                     }
                                 }
                             }
                         }
+                    }
+
+                    tempList.Add(orderItem + " $" + (totalCost).ToString());
+
+                    if (largePackNumTR != 0)
+                    {
+                        tempList.Add(largePackNumTR.ToString() + "*9 $" + (7.99 * largePackNumTR).ToString());
+                    }
+                    if (medPackNumTR != 0)
+                    {
+                        tempList.Add(medPackNumTR.ToString() + "*5 $" + (4.45 * medPackNumTR).ToString());
+                    }
+                    if (smaPackNumTR != 0)
+                    {
+                        tempList.Add(smaPackNumTR.ToString() + "*3 $" + (2.95 * smaPackNumTR).ToString());
                     }
                     break;
             }
